@@ -1,16 +1,61 @@
-<mvc:View
+<mvc:View xmlns:layout="sap.ui.layout" xmlns:cards="sap.f.cards"
     controllerName="T180.fiorichallenge.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:chart="sap.suite.ui.commons"
     displayBlock="true"
     xmlns="sap.m">
     <Shell id="shell">
         <App id="app">
             <pages>
-                <Page id="page" title="{i18n>pageTitle}">
+                <Page id="page" title="{i18n>pageTitle}" showHeader="true">
+                    
                     <content>
                         <!-- Example text binding from the Asset Review model -->
                         <Text text="{AssetReviewModel>/CurrentDate}" id="exampleText" class="sapUiSmallMargin"/>
-                    </content>
+                        <!-- Aastha Babbar: 20.02.2022: Adding textbox for review count -->
+                        <Text text="Total number of Rows = {AssetReviewModel>/Reviews/length}" id="reviewCount" class="sapUiSmallMargin"/>
+                         <List id="reviewsList" items="{AssetReviewModel>/Reviews}" >
+                         <items>
+                            <DisplayListItem label="AssetName" value="{AssetReviewModel>AssetName}"></DisplayListItem>
+                         </items>
+                         </List>
+                         <Button id="addButton" text="Add" press=".OnAddBtnClick" class="sapUiSmallMargin"/> 
+
+                    <VBox>
+                    <chart:ChartContainer id="chartContainer" showFullScreen="true" showZoom="false" title="Asset Review Report">
+                        <chart:ChartContainerContent>
+                            <chart:content>
+                                <viz:VizFrame id="idpiechart" width="auto"
+                                    uiConfig="{applicationSet:'fiori'}" vizType="pie"
+                                    vizProperties="{plotArea:{ dataLabel:{visible: true} },
+                                            title : {text:'Asset Reviews'} }"
+                                    selectData="myOnClickHandler" 
+                                    renderComplete="handleRenderComplete">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset id="flattenData" data="{AssetReviewModel>/Reviews}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="AssetName" value="{AssetReviewModel>AssetName}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Value" value="{AssetReviewModel>Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                        
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="size" type="Measure" values="Value" />
+                                        <viz.feeds:FeedItem uid="color" type="Dimension" values="AssetName" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </chart:content>
+
+                        </chart:ChartContainerContent>
+                    </chart:ChartContainer>
+                </VBox>
+		        </content>
                 </Page>
             </pages>
         </App>
