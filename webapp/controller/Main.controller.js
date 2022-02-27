@@ -21,6 +21,20 @@ sap.ui.define([
 
                 // Example; setting the 'CurrentDate' property in the Asset Review model
                 this.getView().getModel("AssetReviewModel").setProperty("/CurrentDate", new Date());
+                            
+            },
+            //Aastha Babbar: 23.02.2022: Event Handler for Add New Review
+            OnAddBtnClick: function () {
+                if(!this.getView().byId("fragmentId")){
+                    this.loadFragment({name: "T180.fiorichallenge.View.AddNewReview"}).then(function (oDialog) {
+                        this.getView().addDependent(oDialog);
+                        oDialog.open();
+                      });
+                      
+                } else {
+                    this.byId("fragmentId").open();
+                     }
             }
+
         });
     });

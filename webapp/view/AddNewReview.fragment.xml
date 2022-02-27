@@ -1,0 +1,34 @@
+<!--Aastha Babbar: Add button Dialog-->
+<core:FragmentDefinition>
+    controllerName="T180.fiorichallenge.controller.Main"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    id="fragmentId"
+    name=" ">
+    <Dialog id="AddNewReviewDialog" xmlns="sap.m" title="{/AddReviewTitle}">-->
+    <VBox >           
+            <Text text="AssetName: "/>
+            <Input id="InputAssetName" />
+            <Text text="Suitability: "/>
+            <Input id="InputSuitability"/> 
+            <Text text="Value: "/>
+            <Input id="InputValue"/>
+            <Text text="ValueComment: "/>
+            <Input id="InputValueComment"/>
+            <Text text="Durability: "/>
+            <Input id="InputDurability"/>
+            <Text text="DurabilityComment: "/>
+            <Input id="InputDurabilityComment"/>
+            <Text text="Longevity: "/>
+            <Input id="InputLongevity"/>
+            <Text text="LongevityComment: "/>
+            <Input id="InputLongevityComment"/>
+            <Text text="SummaryComments: "/>
+            <Input id="InputSummaryComments"/>
+            <Text text="SubmittedBy: "/>,
+            <Input id= "InputSubmittedBy"/>
+            <Button id="saveButton" text="Save" press="SaveReview"/>
+            <Button id="cancelButton" text="Cancel" press="CancelReview"/>
+        </VBox>
+    </Dialog>
+</core:FragmentDefinition>
